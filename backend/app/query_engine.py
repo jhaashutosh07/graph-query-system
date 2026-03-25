@@ -215,10 +215,16 @@ class QueryEngine:
                  neo4j_user: str,
                  neo4j_password: str,
                  guardrails,  # Guardrails validator
+                 neo4j_database: str = "neo4j",
                  cache_store=None):  # Optional cache (Redis, etc.)
         
         self.llm = llm_provider
-        self.executor = QueryExecutor(neo4j_uri, neo4j_user, neo4j_password)
+        self.executor = QueryExecutor(
+            neo4j_uri,
+            neo4j_user,
+            neo4j_password,
+            database=neo4j_database,
+        )
         self.guardrails = guardrails
         self.cache = cache_store  # For caching responses
         

@@ -48,6 +48,7 @@ logger = logging.getLogger(__name__)
 NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
 NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password123")
+NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 AUTO_LOAD_SAMPLE_DATA = os.getenv("AUTO_LOAD_SAMPLE_DATA", "false").lower() in {"1", "true", "yes", "y"}
 
@@ -88,7 +89,9 @@ async def lifespan(app: FastAPI):
         
         # Initialize Graph Constructor & Query Engine
         global graph_constructor, query_engine
-        graph_constructor = GraphConstructor(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD)
+        graph_constructor = GraphConstructor(
+            NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, database=NEO4J_DATABASE
+        )
         logger.info("✓ Neo4j connection established")
         
         # Initialize schema (idempotent)
@@ -114,6 +117,7 @@ async def lifespan(app: FastAPI):
             neo4j_uri=NEO4J_URI,
             neo4j_user=NEO4J_USER,
             neo4j_password=NEO4J_PASSWORD,
+            neo4j_database=NEO4J_DATABASE,
             guardrails=guardrails
         )
         logger.info("✓ Query engine initialized")
