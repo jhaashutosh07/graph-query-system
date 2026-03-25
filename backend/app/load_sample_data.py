@@ -30,9 +30,10 @@ def main():
   uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
   user = os.getenv("NEO4J_USER", "neo4j")
   password = os.getenv("NEO4J_PASSWORD", "password123")
+  database = os.getenv("NEO4J_DATABASE", "neo4j")
 
   loader = DataLoader(data_dir)
-  constructor = GraphConstructor(uri, user, password)
+  constructor = GraphConstructor(uri, user, password, database=database)
 
   try:
     file_mapping = {
