@@ -1,0 +1,4 @@
+product_id,product_name,category,price,stock
+PROD-001,Laptop Pro,Electronics,1499.99,45
+PROD-002,Warehouse Scanner,Electronics,399.50,120
+PROD-003,Office Chair,Furniture,189.00,300

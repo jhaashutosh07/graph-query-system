@@ -1,0 +1,3 @@
+invoice_id,order_id,invoice_date,total_amount,status
+INV-001,ORD-001,2026-03-12,1899.49,paid
+INV-002,ORD-002,2026-03-12,1499.99,issued
