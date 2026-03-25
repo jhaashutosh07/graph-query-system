@@ -279,9 +279,9 @@ async def process_query(payload: QueryRequest, request: Request):
 )
 @limiter.limit("60/minute")
 async def get_subgraph(
+    request: Request,
     entity_id: str,
     depth: int = 2,
-    request: Request
 ):
     """
     Get subgraph around a specific entity.
@@ -351,7 +351,7 @@ async def get_subgraph(
     tags=["Graph"]
 )
 @limiter.limit("60/minute")
-async def get_graph_overview(limit: int = 80, request: Request):
+async def get_graph_overview(request: Request, limit: int = 80):
     if limit < 10 or limit > 300:
         raise HTTPException(status_code=400, detail="Limit must be between 10 and 300")
 
