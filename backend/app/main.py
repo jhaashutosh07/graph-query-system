@@ -18,7 +18,7 @@ from typing import Optional, Dict, Any, List
 from contextlib import asynccontextmanager
 from datetime import datetime
 
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from slowapi import Limiter
@@ -215,7 +215,7 @@ async def get_info():
     tags=["Query"]
 )
 @limiter.limit("30/minute")
-async def process_query(request: QueryRequest, _=None):  # _=None for rate limiter
+async def process_query(payload: QueryRequest, request: Request):
     """
     Process a natural language query against the knowledge graph.
     
@@ -243,10 +243,10 @@ async def process_query(request: QueryRequest, _=None):  # _=None for rate limit
                 detail="Query engine not initialized"
             )
         
-        logger.info(f"Processing query: {request.query}")
+        logger.info(f"Processing query: {payload.query}")
         
         # Process query through engine
-        result = query_engine.process_query(request.query)
+        result = query_engine.process_query(payload.query)
         
         # Map result to response model
         response = QueryResponse(
@@ -281,7 +281,7 @@ async def process_query(request: QueryRequest, _=None):  # _=None for rate limit
 async def get_subgraph(
     entity_id: str,
     depth: int = 2,
-    _=None
+    request: Request
 ):
     """
     Get subgraph around a specific entity.
@@ -351,7 +351,7 @@ async def get_subgraph(
     tags=["Graph"]
 )
 @limiter.limit("60/minute")
-async def get_graph_overview(limit: int = 80, _=None):
+async def get_graph_overview(limit: int = 80, request: Request):
     if limit < 10 or limit > 300:
         raise HTTPException(status_code=400, detail="Limit must be between 10 and 300")
 
@@ -393,7 +393,7 @@ async def get_graph_overview(limit: int = 80, _=None):
     tags=["Graph"]
 )
 @limiter.limit("100/minute")
-async def get_node_metadata(node_id: str, _=None):
+async def get_node_metadata(node_id: str, request: Request):
     """
     Get detailed metadata for a specific node.
     """
