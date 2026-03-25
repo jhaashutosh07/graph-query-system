@@ -51,6 +51,7 @@ NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "password123")
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 AUTO_LOAD_SAMPLE_DATA = os.getenv("AUTO_LOAD_SAMPLE_DATA", "false").lower() in {"1", "true", "yes", "y"}
+logger.info(f"Configured Neo4j database: {NEO4J_DATABASE}")
 
 # Rate limiting
 limiter = Limiter(key_func=get_remote_address)
