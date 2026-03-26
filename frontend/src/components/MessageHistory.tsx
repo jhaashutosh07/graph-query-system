@@ -1,28 +1,35 @@
 import type { Message } from '../types'
 
-export function MessageHistory({ messages, loading }: { messages: Message[]; loading: boolean }) {
-  if (messages.length === 0) {
-    return (
-      <div className="empty-state">
-        <h3>Start asking questions</h3>
-        <p>Try:</p>
-        <ul>
-          <li>Which products are in the most orders?</li>
-          <li>Trace order ORD-001 through invoice and payment</li>
-          <li>Find delivered orders with no invoice</li>
-        </ul>
-      </div>
-    )
-  }
+interface MessageHistoryProps {
+  messages: Message[]
+  loading: boolean
+}
 
+export function MessageHistory({ messages, loading }: MessageHistoryProps) {
   return (
-    <div className="messages-list">
-      {messages.map((message, index) => (
-        <div key={`${message.timestamp}-${index}`} className={`message ${message.role}`}>
-          <strong>{message.role === 'user' ? 'You' : 'Assistant'}:</strong> {message.content}
+    <>
+      {messages.map((msg, index) => (
+        <div 
+          key={index} 
+          className={`message ${msg.role}`}
+          data-testid={`message-${msg.role}`}
+        >
+          <div className="message-avatar">
+            {msg.role === 'assistant' ? 'D' : '👤'}
+          </div>
+          <div className="message-content">
+            {msg.content}
+          </div>
         </div>
       ))}
-      {loading && <div className="loading-msg">Loading...</div>}
-    </div>
+      {loading && (
+        <div className="message assistant" data-testid="loading-message">
+          <div className="message-avatar">D</div>
+          <div className="message-content">
+            <span className="loading-msg">Analyzing...</span>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
