@@ -1,0 +1,3 @@
+delivery_id,order_id,delivery_date,ship_date,destination_address
+DEL-001,ORD-001,2026-03-13,2026-03-11,101 Market St
+DEL-002,ORD-002,2026-03-14,2026-03-12,42 Harbor Ave

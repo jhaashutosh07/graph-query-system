@@ -1,0 +1,4 @@
+customer_id,customer_name,email,country
+CUST-001,Acme Retail,buyer@acme.example,USA
+CUST-002,Northwind Stores,ops@northwind.example,USA
+CUST-003,Blue Ocean Market,finance@blueocean.example,Canada

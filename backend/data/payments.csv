@@ -1,0 +1,2 @@
+payment_id,invoice_id,amount,payment_date,payment_method
+PAY-001,INV-001,1899.49,2026-03-15,bank_transfer

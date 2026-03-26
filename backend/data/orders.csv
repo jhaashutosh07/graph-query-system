@@ -1,0 +1,4 @@
+order_id,customer_id,order_date,total_amount,status
+ORD-001,CUST-001,2026-03-10,1899.49,completed
+ORD-002,CUST-002,2026-03-11,1499.99,completed
+ORD-003,CUST-003,2026-03-12,588.50,pending
